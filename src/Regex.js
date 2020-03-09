@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 class Regex extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   keyPressed(e) {
     if (e.keyCode === 13) {
       e.preventDefault();
@@ -19,15 +15,6 @@ class Regex extends Component {
       </section>
     );
   }
-}
-
-
-class Match extends Component {
-
-}
-
-class MatchGroup extends Component {
-
 }
 
 export default Regex;
