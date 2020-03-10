@@ -18,6 +18,27 @@ function sendData(e) {
     return res;
   };
 
+  const getHighlightString = (data, r, o) => {
+    let str = document.body.querySelector("textarea[name='string-input']").value;
+    let reg = new RegExp(r, o + 'g');
+
+    return str.replace(reg, `<span class='highlight'>$&</span>`);
+  };
+
+  const createList = (arr) => {
+    if (arr.length === 0) {
+      return "<li>No groups found.</li>"
+    }
+
+    let str = '';
+
+    arr.forEach(function(s) {
+      str += `<li>${s.slice(1, s.length - 1)}</li>`;
+    });
+
+    return str;
+  };
+
   e.preventDefault();
 
   let r = document.body.querySelector("input[name='regex-input']").value;
@@ -39,10 +60,21 @@ function sendData(e) {
   })
   .then(res => res.json())
   .then(function(json) {
-    let groups = getGroups(json);
+    let matchElement = document.getElementById('matches').querySelector('p');
+    let groupElement = document.getElementById('groups').querySelector('ul');
 
-    // render matches
-    // render groups
+    if (json['ERROR_915_JM_111']) { // invalid regex
+      let res = json['ERROR_915_JM_111'][0].toUpperCase() + json['ERROR_915_JM_111'].slice(1);
+      matchElement.textContent = res;
+      return;
+    }
+
+    let groups = getGroups(json);
+    let h = getHighlightString(json, r, o);
+    let listItems = createList(groups);
+
+    matchElement.innerHTML = h;
+    groupElement.innerHTML = listItems;
   })
   .catch(function(error) {
     console.log(error);

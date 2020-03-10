@@ -15,3 +15,7 @@ code {
 textarea {
   resize: none;
 }
+
+.highlight {
+  background-color: cyan;
+}

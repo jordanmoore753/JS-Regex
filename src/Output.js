@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 
 class Output extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 'highlights': [], 'groups': [] };
-  }
-
   render() {
     return (
-      <section id="matches">
-        
+      <section id="output">
+        <section id="matches">
+          <p>No string to evaluate yet.</p>
+        </section>
+        <section id="groups">
+          <ul>
+            <li>No matches.</li>
+          </ul>
+        </section>
       </section>
     );
   }
